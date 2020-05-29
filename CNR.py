@@ -36,7 +36,7 @@ def cnr(seeds, G, Graph):
             Graph[i][node] = c + 1
             
             
-    G = nx.Graph(Graph)
+#    G = nx.Graph(Graph)
         
     for source, target in G.edges():
         G[source][target]['weight'] = Graph[source][target]

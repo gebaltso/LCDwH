@@ -142,7 +142,7 @@ def reWeighting(seeds, graphRW, graphRWdict):
             
             
             
-    graphRW = nx.Graph(graphRWdict)
+#    graphRW = nx.Graph(graphRWdict)
         
     for source, target in graphRW.edges():
         graphRW[source][target]['weight'] = graphRWdict[source][target]       

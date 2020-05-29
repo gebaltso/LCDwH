@@ -21,7 +21,7 @@ def FilesAdjAll(seeds, G, Graph):
                 
                 
                 
-    G = nx.Graph(Graph)
+#    G = nx.Graph(Graph)
         
     for source, target in G.edges():
         G[source][target]['weight'] = Graph[source][target]

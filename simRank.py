@@ -80,32 +80,32 @@ import matplotlib.pyplot as plt
 #    
 #print("------------------------------")
 
-def simRank(seeds, G, newGraph, hops):
-    
-    
-#    hops = 2  #orizw to depth pou tha ftasw
+def simRank(seeds, G, newGraph, hops, reWire):
     C = nx.Graph() #dimiourgw arxika keno grafo
     
     for s in seeds: # gia ka8e seed kataskeuazw ton ypografo tou ws kai depth=hops
-        tmp = nx.ego_graph(G, s, radius=hops)
+        tmp = nx.ego_graph(G, s, radius=hops if reWire else 1)
         C = nx.compose(C, tmp) #enwnw ta epimerous grafhmata. px an oi seed einai 2 enwnw tous 2 ypografous se enan eniaio wste na mhn exw 2typa. Ton C
-#    print(C.number_of_edges())
-#    print(C.number_of_nodes())
+
+    if reWire:
         
-        
-    for n in seeds: #trexw ton simrank gia olous tous komvous tou C. Allazw ola ta barh metaksu olwn twn komvwn tou C
-#        for m in nx.nodes(C):
-#        if n == m: continue
-        sim = nx.simrank_similarity(C, n, target=None, importance_factor=0.8, max_iterations=10, tolerance=0.0001)
-        for m in sim.keys():
-            if n == m: continue
-            newGraph[n][m] = sim[m] + 1 #allazw ta barh sto original grafo!!!!
-            newGraph[m][n] = sim[m] + 1
+        for n in seeds: #trexw ton simrank gia olous tous komvous tou C. Allazw ola ta barh metaksu olwn twn komvwn tou C
+            sim = nx.simrank_similarity(C, n, target=None, importance_factor=0.8, max_iterations=10, tolerance=0.0001)
+            avg_sim = sum(sim.values()) / len(sim.values())
+            for m in sim.keys():
+                if n == m or avg_sim > sim[m]: continue
+                newGraph[n][m] = 1 #allazw ta barh sto original grafo!!!!
+                newGraph[m][n] = 1
                 
-#    G1 = nx.Graph(newGraph) # o telikos grafos pou exei pantou ta arxika barh ektos apo auta pou upologisthkan me simrank!!!
-    
-    for source, target in G.edges(): # pros8etw ta barh ston teliko grafo
-        G[source][target]['weight'] = newGraph[source][target]
+        G = nx.Graph(newGraph) # rewiring
+        for source, target in G.edges():
+            G[source][target]['weight'] = newGraph[source][target]
+    else:
+        for n in seeds:
+            for t in list(newGraph[n].keys()):
+                sim = nx.simrank_similarity(C, n, t, importance_factor=0.8, max_iterations=2, tolerance=0.0001)
+                newGraph[n][t] += sim
+                G[n][t]['weight'] = newGraph[n][t]    
 
     
     return G, newGraph

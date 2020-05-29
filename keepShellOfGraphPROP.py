@@ -27,7 +27,7 @@ from WERWKpath import KpathAlg
 from propinquity import propinquityD
 
 
-def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops):
+def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops, rewire):
     if method == 'plain':
         lte(seedsetFile, file, 1, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
         lte(seedsetFile, file, 3, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
@@ -41,7 +41,7 @@ def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops):
         elif method == 'CNR':
             tmpGraph, tmpDict = cnr(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
         elif method == 'SimRank':
-            tmpGraph, tmpDict = simRank(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), hops)
+            tmpGraph, tmpDict = simRank(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), hops, rewire)
         elif method == 'MultiplyWeight':
             tmpGraph, tmpDict = FilesAdjAll(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
         elif method == 'Triangles':
@@ -60,35 +60,27 @@ def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops):
     print("------------------------------")
 
 
-dataset_path = './seperatedExps/datasets/lfr/'
-file = 'test1.csv'
+dataset = sys.argv[1]
+arr = dataset.split('/')
 
-#myFile is the input csv file
-#myFile = 'lfrEdgelistN1000MU0.1*.csv'
-#myFile = 'lfrEdgelistN5000MU0.40*.csv'
-#myFile = 'lfr3.csv'
-#myFile = 'youTube.csv'
-#myFile = 'dblp.csv'
-#myFile = 'NetCol.csv'
-myFile = dataset_path + file
-#myFile = 'Physical_Interactions.IREF-BIOGRID.csv'
+
+myFile = dataset
 
 #file is the input file with the LFR parameters in its name, in string format(without .csv)
-file = file[:-4]
+file = arr[len(arr) - 1][:-4]
 
 l = 11
 hops = 2
 
-#copy input csv file to the weighted folder in order to run the experiments with the initial file too
-#shutil.copy2(myFile, '../weighted/'+str(file)+'<11111-11111>1.csv' )
-
 #community file
-communityFile = '/Users/georgiabaltsou/Desktop/PhD/Local_exp/seperatedExps/datasets/lfr/communityFile.txt'
+communityFile = sys.argv[2]
+#seeds file
+seedsetFile = sys.argv[3]
 
 #seeds = read seed nodes from seedFile
-seedFile = open('/Users/georgiabaltsou/Desktop/PhD/Local_exp/seperatedExps/datasets/lfr/seedsetFile.txt', 'r')
+seedFile = open(seedsetFile, 'r')
 seeds = seedFile.readline().split(" ")
-seedsetFile = '/Users/georgiabaltsou/Desktop/PhD/Local_exp/seperatedExps/datasets/lfr/seedsetFile.txt'
+
 
 #keep as seed the 1st seed of seedFile
 seed = seeds[0]
@@ -121,10 +113,11 @@ methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight',
 
 d = 2
 a = 3
-b = 11
+b = 20
+rewire = True
 
 for method in methods:
-    call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops)
+    call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops, rewire)
 
 
 

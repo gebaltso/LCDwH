@@ -30,53 +30,42 @@ def findPathsNoLC(G,s,d):
 
 
 def propinquityD(seeds, G, Graph, newGraph, distance, a, b):
-    
-#    Graph.setdefault() = 1
-    
-    for node in seeds:
-    
-#        node_nei = set(Graph[node].keys()) # the neigbors of seed node
-               
-        
-        node_nei = (findPathsNoLC(G,node,distance)) # the paths starting from node and have length till 2
-        nodes = [] # the nodes extracted from the above paths
-        
-        for path in node_nei:
-            
-            for i in range (1, distance+1):           
-                if path[i] not in nodes:
-                    nodes.append(path[i])
 
-
+    C = nx.Graph()    
+    for s in seeds: # gia ka8e seed kataskeuazw ton ypografo tou ws kai depth=hops
+        tmp = nx.ego_graph(G, s, radius=distance)
+        C = nx.compose(C, tmp)
+        
+    nodes = list(nx.nodes(C))
+    for seed in seeds:
+        neighbors_seed = [j for j in C.neighbors(seed)]
         for i in nodes:
-                        
-            if G.has_edge(node, i):
-                s1 = 1 # count edge between two nodes
+            if C.has_edge(seed, i):
+                s1 = 1
             else:
                 s1 = 0
-            
-            i_nei = set(Graph[i].keys()) # neigbors of each neighbor i
-            
-            common_nei = set(nodes) & i_nei #find the common neigbors of two nodes
-            
+            neighbors_i = [j for j in C.neighbors(i)]
+        
+            common = set(neighbors_seed).intersection(set(neighbors_i))
+
             counter = 0 # find number of edges between the node's neighbors            
-            for j in common_nei:
-                for k in common_nei:
+            for j in common:
+                for k in common:
                     if j in Graph and k in Graph[j] :
                         counter += 1
             counter /= 2 
                 
-            prop = s1 + len(i_nei) + counter
+            prop = s1 + len(neighbors_i) + counter
             
-            if prop >= b and not G.has_edge(node, i):
-
-                Graph[node][i] = 1
-                Graph[i][node] = 1
+            if prop >= b and not G.has_edge(seed, i):
+                print('add ', prop, seed, i)
+                Graph[seed][i] = 1
+                Graph[i][seed] = 1
                 
-            if prop <= a and G.has_edge(node, i):
-
-                del Graph[node][i]
-                del Graph[i][node]
+            if prop <= a and G.has_edge(seed, i):
+                print('rem ', prop, seed, i)
+                del Graph[seed][i]
+                del Graph[i][seed]
 
 
     G = nx.Graph(Graph)
