@@ -17,7 +17,6 @@ import time
 import shutil
 from collections import defaultdict
 from numpy import array
-from testSimRank import simrank
 import matplotlib.pyplot as plt
 
 

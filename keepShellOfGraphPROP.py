@@ -27,9 +27,8 @@ from WERWKpath import KpathAlg
 from propinquity import propinquityD
 
 
-
-#change dir
-os.chdir('seperatedExps/datasets/lfr/')
+dataset_path = './seperatedExps/datasets/lfr/'
+file = 'test1.csv'
 
 #myFile is the input csv file
 #myFile = 'lfrEdgelistN1000MU0.1*.csv'
@@ -38,11 +37,11 @@ os.chdir('seperatedExps/datasets/lfr/')
 #myFile = 'youTube.csv'
 #myFile = 'dblp.csv'
 #myFile = 'NetCol.csv'
-myFile = 'test1.csv'
+myFile = dataset_path + file
 #myFile = 'Physical_Interactions.IREF-BIOGRID.csv'
 
 #file is the input file with the LFR parameters in its name, in string format(without .csv)
-file = myFile[:-4]
+file = file[:-4]
 
 l = 11
 hops = 2
@@ -85,8 +84,6 @@ for source, target in G.edges():
     
 print("------------------------------")
 
-
-os.chdir('../')
 
 
 #method = 'plain'
@@ -218,9 +215,9 @@ print(trueComm)
 
 
 #create seperated metrics file for each algorithm in the communities dir
-os.chdir('communities')
+#os.chdir('communities')
 
-metrics(str(file)+'_communities.csv', GTC, trueComm)
+metrics(file, GTC, trueComm)
 
 print("Computation of metrics completed.")
 print("------------------------------")

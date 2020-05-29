@@ -15,7 +15,7 @@ import sys
 import copy
 from collections import defaultdict
 from numpy import array
-from testSimRank import simrank
+
 
 #
 ##change dir

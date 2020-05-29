@@ -13,17 +13,16 @@ import numpy as np
 
 
 def metrics(myFile, GTC, trueComm):
-        
-    with open(str(myFile), 'r') as in_file:
+    with open('./communities/' + myFile + '_communities.csv', 'r') as in_file:
         reader = csv.reader(in_file, delimiter=';')
         #skip 1st line as its the header line
         next(reader, None)
     
             
-        with open('metrics_'+str(myFile), 'a') as out_file:
+        with open('./communities/metrics_'+str(myFile), 'a') as out_file:
             writer = csv.writer(out_file, delimiter=';')
             
-            if os.stat('metrics_'+str(myFile)).st_size == 0:
+            if os.stat('./communities/metrics_'+str(myFile)).st_size == 0:
 #                writer.writerow(["ALGORITHM","Node 1","Node 2","Seed node","Mult Weight", "PRECISION", "RECALL", "F1", "JaccardIndex"])
                 writer.writerow(["ALGORITHM","Seed node","Method", "PRECISION", "RECALL", "F1", "JaccardIndex"])
         
