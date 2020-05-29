@@ -19,15 +19,13 @@ def metrics(myFile, GTC, trueComm):
         next(reader, None)
     
             
-        with open('./communities/metrics_'+str(myFile), 'a') as out_file:
+        with open('./communities/metrics_'+str(myFile) + '.csv', 'a') as out_file:
             writer = csv.writer(out_file, delimiter=';')
             
-            if os.stat('./communities/metrics_'+str(myFile)).st_size == 0:
+            if os.stat('./communities/metrics_'+str(myFile) + '.csv').st_size == 0:
 #                writer.writerow(["ALGORITHM","Node 1","Node 2","Seed node","Mult Weight", "PRECISION", "RECALL", "F1", "JaccardIndex"])
                 writer.writerow(["ALGORITHM","Seed node","Method", "PRECISION", "RECALL", "F1", "JaccardIndex"])
-        
             for row in reader:
-
                 
                 alg = str(row[0])
 #                node1 = str(row[1])

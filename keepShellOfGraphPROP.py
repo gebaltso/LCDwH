@@ -27,6 +27,39 @@ from WERWKpath import KpathAlg
 from propinquity import propinquityD
 
 
+def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops):
+    if method == 'plain':
+        lte(seedsetFile, file, 1, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
+        lte(seedsetFile, file, 3, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
+        newLCD(seedsetFile, file, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
+        tce(copy.deepcopy(G), seedsetFile, file, copy.deepcopy(newGraph), myFile, copy.deepcopy(newGraph), method,l)
+    else:
+        if method == 'propinquity':
+            tmpGraph, tmpDict = propinquityD(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), copy.deepcopy(newGraph), d, a, b)
+        elif method == 'k-path':
+            tmpGraph, tmpDict = KpathAlg(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
+        elif method == 'CNR':
+            tmpGraph, tmpDict = cnr(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
+        elif method == 'SimRank':
+            tmpGraph, tmpDict = simRank(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), hops)
+        elif method == 'MultiplyWeight':
+            tmpGraph, tmpDict = FilesAdjAll(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
+        elif method == 'Triangles':
+            tmpGraph, tmpDict = reWeighting(seeds, copy.deepcopy(G), copy.deepcopy(newGraph)) 
+        elif method == 'Loop edge':
+            tmpGraph, tmpDict = addLoopEdge(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
+                    
+        lte(seedsetFile, file, 1, copy.deepcopy(tmpGraph), copy.deepcopy(tmpDict), method,l)
+        tce(copy.deepcopy(tmpGraph), seedsetFile, file, copy.deepcopy(tmpDict), myFile, copy.deepcopy(tmpDict), method,l)
+        newLCD(seedsetFile, file, copy.deepcopy(tmpGraph), copy.deepcopy(tmpDict), method,l)
+            
+            
+        del tmpGraph
+        del tmpDict
+    print("{} method completed.".format(method))
+    print("------------------------------")
+
+
 dataset_path = './seperatedExps/datasets/lfr/'
 file = 'test1.csv'
 
@@ -84,121 +117,16 @@ for source, target in G.edges():
     
 print("------------------------------")
 
+methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
+
+d = 2
+a = 3
+b = 11
+
+for method in methods:
+    call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops)
 
 
-#method = 'plain'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
-#lte(seedsetFile, file, 3, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(G), copy.deepcopy(newGraph), method,l)
-#tce(copy.deepcopy(G), seedsetFile, file, copy.deepcopy(newGraph), myFile, copy.deepcopy(newGraph), method,l)
-#print("Initial method completed.")
-#print("------------------------------")
-#
-#
-#graphProp, graphPropdict = propinquityD(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), copy.deepcopy(newGraph), 2, 3, 11)
-#
-#method = 'propinquity'
-##print(graphPropdict)
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict), method,l)
-#tce(copy.deepcopy(graphProp), seedsetFile, file, copy.deepcopy(graphPropdict), myFile, copy.deepcopy(graphPropdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict), method,l)
-#print("Propinquity method completed.")
-#print("------------------------------")
-#
-#del graphProp
-#del graphPropdict
-#
-##graphKpath, graphKpathdict = KpathAlg(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-#graphKpath, graphKpathdict = KpathAlg(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
-#####print(graphKpathdict)
-#
-#method = 'k-path'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphKpath), copy.deepcopy(graphKpathdict), method,l)
-#tce(copy.deepcopy(graphKpath), seedsetFile, file, copy.deepcopy(graphKpathdict), myFile, copy.deepcopy(graphKpathdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphKpath), copy.deepcopy(graphKpathdict), method,l)
-#print("k-path method completed.")
-#print("------------------------------")
-#
-#del graphKpath
-#del graphKpathdict
-#
-##graphCNR, graphCNRdict = cnr(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-#graphCNR, graphCNRdict = cnr(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
-#
-###print(graphCNRdict)
-#
-#method = 'CNR'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphCNR), copy.deepcopy(graphCNRdict), method,l)
-#tce(copy.deepcopy(graphCNR), seedsetFile, file, copy.deepcopy(graphCNRdict), myFile, copy.deepcopy(graphCNRdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphCNR), copy.deepcopy(graphCNRdict), method,l)
-#print("CNR weighted graph created.")
-#print("------------------------------")
-#
-#del graphCNR
-#del graphCNRdict
-
-##graphSR, graphSRdict = simRank(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-graphSR, graphSRdict = simRank(seeds, copy.deepcopy(G), copy.deepcopy(newGraph), hops)
-
-#print(graphSRdict)
-
-method = 'SimRank'
-
-lte(seedsetFile, file, 1, copy.deepcopy(graphSR), copy.deepcopy(graphSRdict), method,l)
-tce(copy.deepcopy(graphSR), seedsetFile, file, copy.deepcopy(graphSRdict), myFile, copy.deepcopy(graphSRdict), method,l)
-newLCD(seedsetFile, file, copy.deepcopy(graphSR), copy.deepcopy(graphSRdict), method,l)
-print("SimRank weighted graph completed.")
-print("------------------------------")
-
-#del graphSR!
-#del graphSRdict
-
-#
-##graphM, graphMdict = FilesAdjAll(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-#graphM, graphMdict = FilesAdjAll(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
-#
-#method = 'MultiplyWeight'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphM), copy.deepcopy(graphMdict), method,l)
-#tce(copy.deepcopy(graphM), seedsetFile, file, copy.deepcopy(graphMdict), myFile, copy.deepcopy(graphMdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphM), copy.deepcopy(graphMdict), method,l)
-#print("Weighted graph completed.")
-#print("------------------------------")
-#
-#del graphM
-#del graphMdict
-#
-##graphRW, graphRWdict = reWeighting(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-#graphRW, graphRWdict = reWeighting(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))   
-#
-#method = 'Triangles'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphRW), copy.deepcopy(graphRWdict), method,l)
-#tce(copy.deepcopy(graphRW), seedsetFile, file, copy.deepcopy(graphRWdict), myFile, copy.deepcopy(graphRWdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphRW), copy.deepcopy(graphRWdict), method,l)
-#print("Re-Weighting of edges done.")
-#print("------------------------------")
-#
-#del graphRW
-#del graphRWdict
-#
-##graphLoop, graphLoopdict = addLoopEdge(seeds, copy.deepcopy(graphProp), copy.deepcopy(graphPropdict))
-#graphLoop, graphLoopdict = addLoopEdge(seeds, copy.deepcopy(G), copy.deepcopy(newGraph))
-#
-#method = 'Loop edge'
-#
-#lte(seedsetFile, file, 1, copy.deepcopy(graphLoop), copy.deepcopy(graphLoopdict), method,l)
-#tce(copy.deepcopy(graphLoop), seedsetFile, file, copy.deepcopy(graphLoopdict), myFile, copy.deepcopy(graphLoopdict), method,l)
-#newLCD(seedsetFile, file, copy.deepcopy(graphLoop), copy.deepcopy(graphLoopdict), method,l)
-#print("Loop edges added.")
-#print("------------------------------")
-#
-#del graphLoop
-#del graphLoopdict
 
 #Give ground truth community details for metrics computation
 seedstr = ' ' +seed+ ' ' # without spaces eg if seed = 10 if is sees 101 firstly it will stop and take as community the one that 101 belongs to.
@@ -211,7 +139,7 @@ with open(communityFile, 'r') as comm:
         if seedstr in line:
             GTC = [n for n in line.strip().split(' ')]
 trueComm = len(GTC)
-print(trueComm)
+
 
 
 #create seperated metrics file for each algorithm in the communities dir

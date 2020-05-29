@@ -219,11 +219,11 @@ def newLCD(seedsetFile, myFile, G, Gdict, method,l):
         
         
        
-    with open('communities/'+str(myFile)+'_communities.csv', 'a') as out_file:
+    with open('./communities/'+str(myFile)+'_communities.csv', 'a') as out_file:
               
         writer = csv.writer(out_file, delimiter=';')
         
-        if os.stat('communities/'+str(myFile)+'_communities.csv').st_size == 0:
+        if os.stat('./communities/'+str(myFile)+'_communities.csv').st_size == 0:
             writer.writerow(["Algorithm", "Seed node", "Method", "Community"])
         
 #        row = [alg]+[node1]+[node2]+[wName]+[s]+LC
@@ -233,10 +233,7 @@ def newLCD(seedsetFile, myFile, G, Gdict, method,l):
         writer.writerow(row)
         
         
-    with open('time/time.txt', 'a') as time_file:
-        time_file.write('newLCD execution time is:')
-        time_file.write(str(time.time() - start_time))
-        time_file.write('\n')
+
         
 
 #!/usr/bin/env python3

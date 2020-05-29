@@ -289,12 +289,11 @@ def tce(G, seedsetFile, file, Gdict, myFile, bdict, method,l):
 #        pbar.close()    
         C = list(np.unique(C))
     
-    os.chdir('/Users/georgiabaltsou/Desktop/PhD/Local_exp/seperatedExps/datasets/')
-    with open('communities/'+str(file)+'_communities.csv', 'a') as out_file:
+    with open('./communities/'+str(file)+'_communities.csv', 'a') as out_file:
               
         writer = csv.writer(out_file, delimiter=';')
         
-        if os.stat('communities/'+str(file)+'_communities.csv').st_size == 0:
+        if os.stat('./communities/'+str(file)+'_communities.csv').st_size == 0:
             writer.writerow(["Algorithm", "Seed node", "Method", "Community"])
         
 #        row = [alg]+[node1]+[node2]+[wName]+[s]+list(C)
@@ -303,8 +302,4 @@ def tce(G, seedsetFile, file, Gdict, myFile, bdict, method,l):
         
         writer.writerow(row)
 
-    with open('time/time.txt', 'a') as time_file:
-        time_file.write('TCE execution time is:')
-        time_file.write(str(time.time() - start_time))
-        time_file.write('\n')
 
