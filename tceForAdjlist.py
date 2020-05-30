@@ -117,7 +117,7 @@ def tce(G, seedsetFile, file, Gdict, myFile, bdict, method,l):
     alg = 'tce'
     
     seedFile = open(seedsetFile, 'r')
-    seeds = seedFile.readline().split(" ")
+    seeds = seedFile.readline().rstrip('\n').split(" ")
     lenS = len(seeds)
     
     

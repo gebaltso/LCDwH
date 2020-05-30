@@ -72,7 +72,8 @@ seedsetFile = sys.argv[3]
 
 #seeds = read seed nodes from seedFile
 seedFile = open(seedsetFile, 'r')
-seeds = seedFile.readline().split(" ")
+seeds = seedFile.readline().rstrip('\n').split(" ")
+
 
 
 #keep as seed the 1st seed of seedFile

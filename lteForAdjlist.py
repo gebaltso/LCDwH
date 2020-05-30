@@ -24,7 +24,6 @@ import csv
 import os
 import time
 import math
-import sys
 
 
 prN = {}
@@ -156,7 +155,7 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
     
     # main program
     seedFile = open(seedsetFile, 'r')
-    seeds = seedFile.readline().split(" ")
+    seeds = seedFile.readline().rstrip('\n').split(" ")
     lenS = len(seeds)
  
     # sim is used for tripling the similarity score(sim=3) or not (sim=1)

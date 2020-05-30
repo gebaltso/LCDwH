@@ -15,8 +15,6 @@ import numpy as np
 import csv
 import os
 import time
-import sys
-import itertools
 
 #find the neighbors of node u
 def findNeighboorOfu(G,u):
@@ -102,7 +100,7 @@ def newLCD(seedsetFile, myFile, G, Gdict, method,l):
     alg = 'newLCD'
     
     seedFile = open(seedsetFile, 'r')
-    seeds = seedFile.readline().split(" ")
+    seeds = seedFile.readline().rstrip('\n').split(" ")
     lenS = len(seeds)
     
 #    node1 = file.split("<")[1].split("-")[0]
