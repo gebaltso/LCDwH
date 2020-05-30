@@ -7,14 +7,6 @@ Created on Thu Nov 28 13:49:14 2019
 """
 
 import networkx as nx
-import numpy as np
-from collections import defaultdict
-import copy
-import sys
-import os
-import csv
-from tqdm import tqdm
-import time
 
 #gia upologismo olwn twn paths tou G ksekinwntas apo ton komvo s kai me mhkos paths d
 def findPathsNoLC(G,s,d):  
@@ -32,9 +24,11 @@ def findPathsNoLC(G,s,d):
 def propinquityD(seeds, G, Graph, newGraph, distance, a, b):
 
     C = nx.Graph()    
-    for s in seeds: # gia ka8e seed kataskeuazw ton ypografo tou ws kai depth=hops
+    for s in seeds: # gia ka8e seed kataskeuazw ton ypografo tou ws kai depth=distance
         tmp = nx.ego_graph(G, s, radius=distance)
         C = nx.compose(C, tmp)
+        
+    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
         
     nodes = list(nx.nodes(C))
     for seed in seeds:
@@ -58,12 +52,12 @@ def propinquityD(seeds, G, Graph, newGraph, distance, a, b):
             prop = s1 + len(neighbors_i) + counter
             
             if prop >= b and not G.has_edge(seed, i):
-                print('add ', prop, seed, i)
+#                print('add ', prop, seed, i)
                 Graph[seed][i] = 1
                 Graph[i][seed] = 1
                 
             if prop <= a and G.has_edge(seed, i):
-                print('rem ', prop, seed, i)
+#                print('rem ', prop, seed, i)
                 del Graph[seed][i]
                 del Graph[i][seed]
 

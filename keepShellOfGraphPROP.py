@@ -8,9 +8,6 @@ Created on Wed Mar  4 13:07:16 2020
 
 import networkx as nx
 import csv
-import os
-import time
-import shutil
 import sys
 import copy
 from metrics import metrics
@@ -63,14 +60,10 @@ def call_method(method, seedSetFile, file, G, newGraph, l, d, a, b, hops, rewire
 dataset = sys.argv[1]
 arr = dataset.split('/')
 
-
 myFile = dataset
 
 #file is the input file with the LFR parameters in its name, in string format(without .csv)
 file = arr[len(arr) - 1][:-4]
-
-l = 11
-hops = 2
 
 #community file
 communityFile = sys.argv[2]
@@ -91,30 +84,32 @@ Graph = defaultdict(dict)
 with open(myFile, 'r') as read_file: 
     reader = csv.reader(read_file, delimiter=';')
     for row in reader:
-#        if row[0] in seeds or row[1] in seeds:
             Graph[row[0]][row[1]] = row[2] 
             Graph[row[1]][row[0]] = row[2]
-#G = nx.Graph(Graph)
 
 newGraph = {k: {kk: float(vv) for kk, vv in v.items()}
          for k, v in Graph.items()}
-
-
     
 G = nx.Graph(newGraph)
-
 
 for source, target in G.edges():
     G[source][target]['weight'] = newGraph[source][target]
     
 print("------------------------------")
 
-methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
 
-d = 2
-a = 3
-b = 20
-rewire = True
+d = 2 #distance in propinquity
+a = 3 #threshold for popinquity
+b = 11 #threshold for popinquity
+rewire = True #if True SimRank will rewire the G. Otherwise it will reweight it.
+hops = 4 #hops for rewiring distance for SimRank
+l = 42 #desired community size
+
+
+if rewire: methods = ['SimRank']
+
+else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
+
 
 for method in methods:
     call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops, rewire)
@@ -136,27 +131,9 @@ trueComm = len(GTC)
 
 
 #create seperated metrics file for each algorithm in the communities dir
-#os.chdir('communities')
-
 metrics(file, GTC, trueComm)
 
 print("Computation of metrics completed.")
 print("------------------------------")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

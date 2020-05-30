@@ -23,22 +23,17 @@ def metrics(myFile, GTC, trueComm):
             writer = csv.writer(out_file, delimiter=';')
             
             if os.stat('./communities/metrics_'+str(myFile) + '.csv').st_size == 0:
-#                writer.writerow(["ALGORITHM","Node 1","Node 2","Seed node","Mult Weight", "PRECISION", "RECALL", "F1", "JaccardIndex"])
-                writer.writerow(["ALGORITHM","Seed node","Method", "PRECISION", "RECALL", "F1", "JaccardIndex"])
+                writer.writerow(["ALGORITHM","Seed node","Method", "PRECISION", "RECALL", "F1"])
             for row in reader:
                 
                 alg = str(row[0])
-#                node1 = str(row[1])
-#                node2 = str(row[2])
+
                 seed = str(row[1])
                 weight = str(row[2])
-#                seed = str(row[1])
-#                weight = float(row[0])
-                
+
                 
                 inComm = 0
                 obtainedComm = np.unique(row[3:])
-#                obtainedComm = np.unique(row[1:])
                                 
                 for i in obtainedComm:
                     resultComm = len(obtainedComm)
@@ -52,11 +47,10 @@ def metrics(myFile, GTC, trueComm):
                 else:  
                     F1 = 2 * (precision * recall) / (precision + recall)
                 
-                JI = len(np.intersect1d(GTC, obtainedComm))/len(np.union1d(GTC, obtainedComm))
-                
+#                JI = len(np.intersect1d(GTC, obtainedComm))/len(np.union1d(GTC, obtainedComm))
                 
 #                writer.writerow([alg, node1, node2, seed, weight, precision, recall, F1, JI]) 
-                writer.writerow([alg, seed, weight, precision, recall, F1, JI]) 
+                writer.writerow([alg, seed, weight, precision, recall, F1]) 
                 
 
     

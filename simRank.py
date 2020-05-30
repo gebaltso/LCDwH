@@ -87,6 +87,8 @@ def simRank(seeds, G, newGraph, hops, reWire):
         tmp = nx.ego_graph(G, s, radius=hops if reWire else 1)
         C = nx.compose(C, tmp) #enwnw ta epimerous grafhmata. px an oi seed einai 2 enwnw tous 2 ypografous se enan eniaio wste na mhn exw 2typa. Ton C
 
+    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
+
     if reWire:
         
         for n in seeds: #trexw ton simrank gia olous tous komvous tou C. Allazw ola ta barh metaksu olwn twn komvwn tou C
@@ -98,6 +100,7 @@ def simRank(seeds, G, newGraph, hops, reWire):
                 newGraph[m][n] = 1
                 
         G = nx.Graph(newGraph) # rewiring
+        
         for source, target in G.edges():
             G[source][target]['weight'] = newGraph[source][target]
     else:
@@ -106,7 +109,7 @@ def simRank(seeds, G, newGraph, hops, reWire):
                 sim = nx.simrank_similarity(C, n, t, importance_factor=0.8, max_iterations=2, tolerance=0.0001)
                 newGraph[n][t] += sim
                 G[n][t]['weight'] = newGraph[n][t]    
-
+        
     
     return G, newGraph
 
