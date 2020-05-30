@@ -14,8 +14,6 @@ import numpy as np
 import csv
 import os
 import time
-import sys
-#from tqdm import tqdm
 
 
 def findNeighboorOfu(G,u):
@@ -168,8 +166,7 @@ def tce(G, seedsetFile, file, Gdict, myFile, bdict, method,l):
 
             score_array[u] = SCORE(u, C, G, Gdict)
 #            curmax = curscore
-
-#    pbar = tqdm(100)     
+     
     while len(score_array)>0  and len(C)<l:
     
         #pinakas me ta scores twn stoixeiwn tou S

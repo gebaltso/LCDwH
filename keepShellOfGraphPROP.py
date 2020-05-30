@@ -99,11 +99,11 @@ print("------------------------------")
 
 
 d = 2 #distance in propinquity
-a = 3 #threshold for popinquity
-b = 11 #threshold for popinquity
-rewire = True #if True SimRank will rewire the G. Otherwise it will reweight it.
-hops = 4 #hops for rewiring distance for SimRank
-l = 42 #desired community size
+a = 400 #threshold for popinquity
+b = 1000 #threshold for popinquity
+rewire = False #if True SimRank will rewire the G. Otherwise it will reweight it.
+hops = 2 #hops for rewiring distance for SimRank
+l = 11 #desired community size
 
 
 if rewire: methods = ['SimRank']
