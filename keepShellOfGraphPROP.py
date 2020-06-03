@@ -98,19 +98,19 @@ for source, target in G.edges():
     
 print("------------------------------")
 
-
 d = 2 #distance in propinquity
-a = 400 #threshold for popinquity
-b = 1000 #threshold for popinquity
+a = 60 #threshold for popinquity
+b = 500 #threshold for popinquity
 rewire = False #if True SimRank will rewire the G. Otherwise it will reweight it.
-hops = 4 #hops for rewiring distance for SimRank
-l = 102 #desired community size
+hops = 3 #hops for rewiring distance for SimRank
+l = 100 #desired community size
 
 
 if rewire: methods = ['SimRank']
 
-else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
+#else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
 
+else: methods = ['propinquity']
 
 for method in methods:
     call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops, rewire)
@@ -118,7 +118,8 @@ for method in methods:
 
 
 #Give ground truth community details for metrics computation
-seedstr = ' ' +seed+ ' ' # without spaces eg if seed = 10 if is sees 101 firstly it will stop and take as community the one that 101 belongs to.
+#seedstr = seed+ ' ' # without spaces eg if seed = 10 if is sees 101 firstly it will stop and take as community the one that 101 belongs to.
+seedstr = ' ' +seed+ ' '
 
 ## !!!!!! if seed is the first item of a line it won't be read properly. SHOULD ADD SPACE IN FRONT OF EACH LINE OF COMMUNITYFILE!
 

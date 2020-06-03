@@ -81,10 +81,13 @@ def findM(G, LC, Gdict):
     cut = nx.cut_size(G, LC, weight='weight')
 #    cut = nx.cut_size(G, LC,weight=Gdict.values())
     
+   
+    
     #volume
     vol = nx.cuts.volume(G, LC, weight='weight')
 #    vol = nx.cuts.volume(G, LC, weight=Gdict.values())
         
+#    if cut == 0: return vol
 
     M = (vol - cut) / (2*cut)
     
