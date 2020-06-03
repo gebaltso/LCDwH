@@ -108,9 +108,9 @@ l = 100 #desired community size
 
 if rewire: methods = ['SimRank']
 
-#else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
+else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
 
-else: methods = ['propinquity']
+#else: methods = ['propinquity']
 
 for method in methods:
     call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops, rewire)
