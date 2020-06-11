@@ -248,6 +248,8 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
         
 #    C = list(np.unique(C))
     
+    print("LTE time: ", time.time() - start_time)
+    
     with open('./communities/'+str(myFile)+'_communities.csv', 'a') as out_file:
               
         writer = csv.writer(out_file, delimiter=';')

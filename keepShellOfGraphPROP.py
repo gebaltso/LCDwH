@@ -99,11 +99,11 @@ for source, target in G.edges():
 print("------------------------------")
 
 d = 2 #distance in propinquity
-a = 60 #threshold for popinquity
-b = 500 #threshold for popinquity
+a = 30 #threshold for popinquity
+b = 400 #threshold for popinquity
 rewire = False #if True SimRank will rewire the G. Otherwise it will reweight it.
-hops = 3 #hops for rewiring distance for SimRank
-l = 100 #desired community size
+hops = 2 #hops for rewiring distance for SimRank
+l = 102 #desired community size
 
 
 if rewire: methods = ['SimRank']

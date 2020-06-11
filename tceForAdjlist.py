@@ -285,6 +285,8 @@ def tce(G, seedsetFile, file, Gdict, myFile, bdict, method,l):
         
 #        pbar.close()    
         C = list(np.unique(C))
+        
+    print("TCE time: ", time.time() - start_time)
     
     with open('./communities/'+str(file)+'_communities.csv', 'a') as out_file:
               
