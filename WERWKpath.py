@@ -103,7 +103,7 @@ def KpathAlg(seeds, G, Graph):
                     Graph[edge][secEdge] = 1 # weight = 1 in the un's adjacent nodes
                     Graph[secEdge][edge] = 1                           
         
-        k = 10
+        k = 20
                 
     
         for i in range(1, p+1):
