@@ -87,7 +87,7 @@ def simRank(seeds, G, newGraph, hops, reWire):
         tmp = nx.ego_graph(G, s, radius=hops if reWire else 1)
         C = nx.compose(C, tmp) #enwnw ta epimerous grafhmata. px an oi seed einai 2 enwnw tous 2 ypografous se enan eniaio wste na mhn exw 2typa. Ton C
 
-    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
+#    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
 
     if reWire:
         

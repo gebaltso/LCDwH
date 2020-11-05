@@ -10,7 +10,7 @@ from LFR import LFR
 
 #for i in range(0,5):
 #
-#
-#    LFR(100, 2, 1.1, 0.03, 3, 13, 10, 13, i)
+#    # (n, tau1, tau2, mu, avg_deg, max_deg, min_comm, max_comm, i)
+#    LFR(10000, 2.5, 1.5, 0.4, 20, 200, 50, 500, i)
 
-LFR(5000, 3, 2, 0.5, 4.5, 75, 158, 105, 0)
+LFR(100000, 2.5, 1.5, 0.4, 20, 200, 50, 500, 0)

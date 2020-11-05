@@ -28,7 +28,7 @@ def propinquityD(seeds, G, Graph, newGraph, distance, a, b):
         tmp = nx.ego_graph(G, s, radius=distance)
         C = nx.compose(C, tmp)
         
-    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
+#    print("Nodes=", len(C.nodes()), "Edges=", len(C.edges()))
         
     nodes = list(nx.nodes(C))
     for seed in seeds:
