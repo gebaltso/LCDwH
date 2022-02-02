@@ -139,17 +139,12 @@ def reWeighting(seeds, graphRW, graphRWdict):
         if node in seeds:
             graphRW, graphRWdict = calculateCycles(node, graphRW, graphRWdict)
             
-            
-            
-            
-#    graphRW = nx.Graph(graphRWdict)
+      
         
     for source, target in graphRW.edges():
         graphRW[source][target]['weight'] = graphRWdict[source][target]       
     
     
     return graphRW, graphRWdict
-    
-
-    
+        
         
