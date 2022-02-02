@@ -21,14 +21,6 @@ def findNeighboorOfu(G,u):
 
 def reWeighting(file):
 
-#file = 'experiments/datasets/lfr5Graph.csv'
-#name = 'lfr5Graph'
-    #file =  'karate/karate.csv'
-    
-#    name = file.split("*")[0] #keep the name without the .csv
-    
-    
-#    print("Current Working Directory " , os.getcwd())
     
     G = nx.Graph()
     G = nx.read_weighted_edgelist(file, create_using=nx.Graph(), delimiter=";", encoding='utf-8-sig')
@@ -100,7 +92,7 @@ def reWeighting(file):
 
                 
     #    TeListUReList = np.union1d(TeList, ReList)
-    #    
+      
         intersection = np.intersect1d(EuUEv,TeList )
         
 
