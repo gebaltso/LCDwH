@@ -7,8 +7,7 @@ Created on Fri May 10 12:56:49 2019
 """
 
 import networkx as nx
-                
- 
+                 
                
 def FilesAdjAll(seeds, G, Graph): 
             
@@ -20,8 +19,7 @@ def FilesAdjAll(seeds, G, Graph):
                 Graph[i][node] = float(Graph[i][node])*3 
                 
                 
-                
-#    G = nx.Graph(Graph)
+
         
     for source, target in G.edges():
         G[source][target]['weight'] = Graph[source][target]
@@ -29,9 +27,4 @@ def FilesAdjAll(seeds, G, Graph):
                 
     return G, Graph
 
-
-
-
-
-            
-                        
+                       
