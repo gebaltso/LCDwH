@@ -91,8 +91,6 @@ def findDelta(node, G, Graph):
 
 def KpathAlg(seeds, G, Graph):
     
-#    un = seeds[0] #the node is un
-    
     for un in seeds:
     
         # depends on the preferred community size and depicts how many random walks will be held
@@ -117,9 +115,6 @@ def KpathAlg(seeds, G, Graph):
                 Graph[key][i] = Graph[key][i]/p
                         
 
-
-
-#    G = nx.Graph(Graph)
     
     for source, target in G.edges():
         G[source][target]['weight'] = Graph[source][target]
@@ -129,13 +124,3 @@ def KpathAlg(seeds, G, Graph):
     return G, Graph
 
                 
-                
-
-            
-       
-       
-        
-        
-    
-  
- 
