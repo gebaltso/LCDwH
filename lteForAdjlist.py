@@ -89,9 +89,6 @@ def structuralSimilarity(u, v, Gdict):
         denominator2 = denominator2 + d2**2   
     
     if simFlag == 1:
-#        print("nom=", nominator)
-#        print("d1=", denominator1)
-#        print("d2=", denominator2)
         return nominator/math.sqrt(denominator1)*math.sqrt(denominator2)  
     else:    
         if u in s:                 
@@ -106,8 +103,6 @@ def SinC(C, similarityStore, Gdict):
         for v in C: 
             if (u in Gdict and v in Gdict[u]):
                 sinC += structuralSimilarity(u, v, Gdict)
-#    if sinC == 0: 
-#        print("SinC = 0")
     return sinC
 
 def SoutC(C, similarityStore, Gdict):
@@ -124,14 +119,11 @@ def SinCa(C, a, similarityStore, Gdict):
     for v in C:   
         if (v in Gdict and a in Gdict[v]):         
             sinCa +=  structuralSimilarity(v, a, Gdict)  
-#    if sinCa == 0:
-#        print("SinCa = 0") 
              
     return sinCa
 
 def SoutCa(C, a, similarityStore, Gdict):
     soutCa = 0
-#    N = findNeighboorOfC(Gdict, C)
     N = (findNeighboorOfu(Gdict,a))-C   
     for u in N:
         if (u in Gdict and a in Gdict[u]):
@@ -150,9 +142,7 @@ def tunableTightnessGain(C, a, factor,similarityStore, Gdict):
 
 def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
 
-    
-    
-    
+
     # main program
     seedFile = open(seedsetFile, 'r')
     seeds = seedFile.readline().rstrip('\n').split(" ")
@@ -166,20 +156,16 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
     
     start_time = time.time()
 
-#    node1 = file.split("<")[1].split("-")[0]   
-#    node2 = file.split("-")[1].split(">")[0] 
-#    wName = file.split(">")[1].split(".")[0]
-
     global simFlag    
     simFlag = sim
     
-    # arxikopoihsh se 0 ths koinotitas C
+    # initialize C to 0
     C = set()
     
-    # arxikopoihsh se 0 tou sunolou tou Neighoorhood eksw apo thn koinothta C
+    # initialize Neighoorhood outside C to 0
     NInitial = []
     
-    # arxikopoihsh ths seed list
+    # initialize seed list
     global s
     s = []
 
@@ -229,9 +215,6 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
       if tunable>0:
           C.add(a)
           
-          #allazw to grafhma wste na pros8esw ton a me tis geitniaseis tou
-#          Gdict[a] = Graph[a]
-#          G = nx.Graph(Gdict)
 
           # step 3: find new N as N U Γ(a)-C
           Na = findGamma(Gdict, a)      
@@ -244,9 +227,6 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
                       if ((j, vertex) not in similarityStore):
                           similarityStore[(j, vertex)] = structuralSimilarity(j, vertex, Gdict)
          
-#          print("C=", C)
-        
-#    C = list(np.unique(C))
     
     print("LTE time: ", time.time() - start_time)
     
@@ -257,8 +237,7 @@ def lte(seedsetFile, myFile, sim, G, Gdict, method,l):
         if os.stat('./communities/'+str(myFile)+'_communities.csv').st_size == 0:
             writer.writerow(["Algorithm", "Seed node", "Method", "Community"])
         
-#        row = [alg]+[node1]+[node2]+[wName]+[s]+C
-#        row = [wName]+[s]+C
+
         row = [alg] + ["\n".join(seeds)] + [method] + list(C)
         
         writer.writerow(row)   
