@@ -10,3 +10,6 @@ community detection algorithms on the altered network of step 1.
 
 In the framework we use already known algorithms for local community detection,
 but they are implemented by us and not given by the original works authors.
+
+The file someone needs to run in order to test the framework is the main.py
+providing the right graph, seedset and community files.
