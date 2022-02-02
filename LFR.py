@@ -31,7 +31,7 @@ def LFR(n, tau1, tau2, mu, avg_deg, max_deg, min_comm, max_comm, i):
 #tau2 = 1.1  #(float) Power law exponent for the community size distribution in the created graph. This value must be strictly greater than one.
 #mu = 0.1  #(float) Fraction of intra-community edges incident to each node. This value must be in the interval [0, 1].
 
-#greater mu => pio asafeis koinothtes!
+#greater mu => more vague communities!
 
 
 #average_degree and min_degree  must be in [0, n]. One of these must be specified.
@@ -68,7 +68,6 @@ def LFR(n, tau1, tau2, mu, avg_deg, max_deg, min_comm, max_comm, i):
     edge_list_filename = 'lfrEdgelistN'+str(n)+'MU'+str(mu)+str(i)+'*.txt'
     community_list_filename = 'communityFile'+str(i)+'.txt'
     
-#    print('Communities: ', communities)
     
     with open('lfrCommN'+str(n)+'MU'+str(mu)+str(i)+'*.txt', 'w') as fc:
         fc.write(str([list(x) for x in communities]))
@@ -112,11 +111,7 @@ def LFR(n, tau1, tau2, mu, avg_deg, max_deg, min_comm, max_comm, i):
             
         my_file.write(text)
     
-    # for power law dist.
-    #number of lines in edge_list_filename
-#    count = len(open(edge_list_filename).readlines(  ))
-#    for j in range(count):
-#        l=powerlaw_sequence(count,exponent=2.0)
+
     
     
     #convert edge txt file to csv file appending also weight 1 or uniform weight between 0.5 and 1 to all edges
@@ -125,9 +120,8 @@ def LFR(n, tau1, tau2, mu, avg_deg, max_deg, min_comm, max_comm, i):
                 with open('lfrEdgelistN'+str(n)+'MU'+str(mu)+str(i)+'*.csv', 'w') as out_file:
                     writer = csv.writer(out_file, delimiter=';') 
                     for row in reader:
-#                        writer.writerow([row[0],row[1], 1])
                         writer.writerow([row[0],row[1], np.random.uniform(0.5, 1)]) #1 will be obtained only after rounding
-#                        writer.writerow([row[0],row[1], random.choice(l)]) # for power law dist.
+
                         
 
                         
