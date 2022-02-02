@@ -75,7 +75,6 @@ seedFile = open(seedsetFile, 'r')
 seeds = seedFile.readline().rstrip('\n').split(" ")
 
 
-
 #keep as seed the 1st seed of seedFile
 seed = seeds[0]
 
@@ -110,7 +109,6 @@ if rewire: methods = ['SimRank']
 
 else: methods = ['plain', 'propinquity', 'k-path', 'CNR', 'SimRank', 'MultiplyWeight', 'Triangles', 'Loop edge' ]
 
-#else: methods = ['propinquity']
 
 for method in methods:
     call_method(method, seedsetFile, file, G, newGraph, l, d, a, b, hops, rewire)
