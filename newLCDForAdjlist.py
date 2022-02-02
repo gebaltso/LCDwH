@@ -76,8 +76,6 @@ def findM(G, LC, Gdict):
     
     #volume
     vol = nx.cuts.volume(G, LC, weight='weight')
-       
-#    if cut == 0: return vol
 
     M = (vol - cut) / (2*cut)
     
@@ -99,7 +97,7 @@ def newLCD(seedsetFile, myFile, G, Gdict, method,l):
     LCInitial = []
 
     
-    # arxikopoihsh ths seed list
+    # initialize seed list
     global s
     s = []
     
@@ -107,7 +105,7 @@ def newLCD(seedsetFile, myFile, G, Gdict, method,l):
         LCInitial.append(seeds[i])
         s.append(seeds[i])       
       
-    # ws LC pairnw tous kontinous komvous tou seed alla an oi seeds den einai 1 pairnw autous ws LC. 
+    # consider as LC the near to seed nodes, but if |seed| != 1 then LC=seed 
     if lenS == 1:
          LC = minimalCluster(G, seeds[0], Gdict)
          
