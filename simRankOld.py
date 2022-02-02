@@ -21,33 +21,6 @@ from testSimRank import simrank
 ##simrank from networkx. Too slow.
 
     
-    
-#def simRank(seeds, G, Graph): 
-#    
-#
-#    for n in seeds:
-#
-#        sim = nx.simrank_similarity(G, n, importance_factor=0.8, max_iterations=2, tolerance=0.0001)
-#
-##        sim = simrank(G, 0.8, 10, n, Graph)
-#        
-#
-#                
-#    
-##    for node in Graph:
-##        if node in seeds:
-#    for node in seeds:
-#        for i in Graph[node]:
-#            Graph[node][i] = sim[i] + 1 #add 1 because sim is between 0 and 1
-#            Graph[i][node] = sim[i] + 1
-#                
-#    return nx.Graph(Graph), Graph
-
-
-
-
-
-    
 def simRank(seeds, G, Graph): 
     
 
@@ -67,22 +40,4 @@ def simRank(seeds, G, Graph):
 
                 
     return G, Graph
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
